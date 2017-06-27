@@ -59,8 +59,8 @@ const bool DEFAULT_REFLECTANCE_AS_INTENSITY = true;
 const float DEFAULT_MIN_REFLECTANCE = -25.0;
 const float DEFAULT_MAX_REFLECTANCE = 5.0;
 
-std::string extractRivlibURI(const Options& options);
-Dimension::IdList getRxpDimensions(bool syncToPps, bool minimal);
+PDAL_DLL std::string extractRivlibURI(const Options& options);
+PDAL_DLL Dimension::IdList getRxpDimensions(bool syncToPps, bool minimal, bool reflectanceAsIntensity);
 
 
 class PDAL_DLL RxpReader : public pdal::Reader
@@ -82,7 +82,7 @@ public:
 
     static Dimension::IdList getDefaultDimensions()
     {
-        return getRxpDimensions(DEFAULT_SYNC_TO_PPS, DEFAULT_MINIMAL);
+        return getRxpDimensions(DEFAULT_SYNC_TO_PPS, DEFAULT_MINIMAL, DEFAULT_REFLECTANCE_AS_INTENSITY);
     }
 
 private:
