@@ -30,6 +30,7 @@ RUN git clone --depth=1 https://github.com/PDAL/PDAL \
         -DBUILD_PLUGIN_SQLITE=ON \
         -DBUILD_PLUGIN_RIVLIB=OFF \
         -DBUILD_PLUGIN_PYTHON=ON \
+        -DBUILD_PLUGIN_MATLAB=ON \
         -DCMAKE_INSTALL_PREFIX=/usr \
         -DENABLE_CTEST=OFF \
         -DWITH_APPS=ON \
