@@ -1,4 +1,4 @@
-FROM pdal/dependencies:latest
+FROM pdal/pdal:dependencies
 MAINTAINER Howard Butler <howard@hobu.co>
 
 ENV CC gcc
@@ -41,9 +41,7 @@ RUN git clone --depth=1 https://github.com/PDAL/PDAL \
         -DCMAKE_BUILD_TYPE=Release \
         .. \
     && make -j 2\
-    && make install \
-    && rm -rf /PDAL
-
+    && make install
 
 RUN pip install packaging \
     && pip install PDAL
@@ -61,5 +59,4 @@ RUN git clone https://github.com/PDAL/PRC.git \
         -DCMAKE_INSTALL_PREFIX=/usr \
         .. \
     && make \
-    && make install \
-    && rm -rf /PRC
+    && make install
