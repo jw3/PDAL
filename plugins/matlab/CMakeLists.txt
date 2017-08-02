@@ -1,5 +1,6 @@
 # Matlab plugin
 
+set(MATLAB_ADDITIONAL_VERSIONS "R2017a=9.2")
 include(${PDAL_CMAKE_DIR}/matlab.cmake)
 
 PDAL_ADD_PLUGIN(libname_writer writer matlab
