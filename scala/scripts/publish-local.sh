@@ -16,4 +16,4 @@ done
 
 export PDAL_VERSION_SUFFIX=${PDAL_VERSION_SUFFIX:-"-SNAPSHOT"}
 
-./sbt publish-local
+sbt publish-local
