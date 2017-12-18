@@ -38,6 +38,10 @@
 #include <pdal/util/Algorithm.hpp>
 #include <pdal/util/FileUtils.hpp>
 
+#ifdef PDAL_HAVE_HOCON
+#include <hocon/config.hpp>
+#endif
+
 #if defined(PDAL_COMPILER_CLANG) || defined(PDAL_COMPILER_GCC)
 #  pragma GCC diagnostic ignored "-Wmissing-field-initializers"
 #endif
@@ -70,6 +74,16 @@ void PipelineManager::readPipeline(const std::string& filename)
         PipelineReaderJSON pipeReader(*this);
         return pipeReader.readPipeline(filename);
     }
+#ifdef PDAL_HAVE_HOCON
+    else if (FileUtils::extension(filename) == ".conf")
+    {
+        auto conf = config::parse_file_any_syntax(filename)->resolve();
+        auto hocon = conf->root()->render(config_render_options(false, false, true, true));
+
+        PipelineReaderJSON pipeReader(*this);
+        return pipeReader.readPipeline(hocon);
+    }
+#endif
     else
     {
         Utils::closeFile(m_input);
