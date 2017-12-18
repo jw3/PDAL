@@ -293,6 +293,20 @@ RUN git clone https://github.com/ninja-build/ninja.git \
     && ./configure.py --bootstrap \
     && cp ninja /usr/bin
 
+RUN git clone https://github.com/puppetlabs/leatherman.git \
+    && cd leatherman \
+    && cmake . \
+    && make \
+    && make install \
+    && rm -rf /leatherman
+
+RUN git clone https://github.com/puppetlabs/cpp-hocon.git \
+    && cd cpp-hocon \
+    && cmake . \
+    && make \
+    && make install \
+    && rm -rf /cpp-hocon
+
 # Install Java.
 RUN echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | debconf-set-selections && \
     add-apt-repository -y ppa:webupd8team/java && \
