@@ -136,6 +136,15 @@ public:
     const std::vector<Stage *> stages() const
         { return m_stages; }
 
+    void destroyAllStages()
+    {
+        for(auto stage : m_stages)
+        {
+            m_factory.destroyStage(stage);
+        }
+        m_stages.clear();
+    }
+
 private:
     void setOptions(Stage& stage, const Options& addOps);
     Options stageOptions(Stage& stage);
