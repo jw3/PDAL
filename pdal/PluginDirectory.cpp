@@ -91,9 +91,9 @@ std::string validPlugin(const std::string& path, const StringList& types)
 
     std::string file = FileUtils::getFilename(path);
     StringList parts = Utils::split(file, '_');
-    if (parts.size() != 4 || parts[0] != "libpdal" || parts[1] != "plugin")
+    if (parts.size() < 4 || parts[0] != "libpdal" || parts[1] != "plugin")
         return std::string();
-    StringList subparts = Utils::split(parts[3], '.');
+    StringList subparts = Utils::split(parts.back(), '.');
 
     if (subparts.size() != 2 || subparts[1] != dynamicLibraryExtension)
         return std::string();
