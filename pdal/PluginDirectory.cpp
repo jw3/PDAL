@@ -35,6 +35,7 @@
 #include <pdal/PluginDirectory.hpp>
 #include <pdal/util/FileUtils.hpp>
 #include <pdal/pdal_config.hpp>
+#include <iterator>
 
 namespace pdal
 {
@@ -93,17 +94,25 @@ std::string validPlugin(const std::string& path, const StringList& types)
     StringList parts = Utils::split(file, '_');
     if (parts.size() < 4 || parts[0] != "libpdal" || parts[1] != "plugin")
         return std::string();
-    StringList subparts = Utils::split(parts.back(), '.');
+    StringList lastpart = Utils::split(parts.back(), '.');
 
-    if (subparts.size() != 2 || subparts[1] != dynamicLibraryExtension)
+    if (lastpart.size() != 2 || lastpart[1] != dynamicLibraryExtension)
         return std::string();
+
+    StringList subparts = StringList(parts.begin() + 3, parts.end() - 1);
+    subparts.push_back(lastpart[0]);
 
     std::string type = parts[2];
-    std::string plugin = subparts[0];
-
     if (!typeValid(type))
         return std::string();
-    return type + "s." + plugin;
+
+    std::ostringstream plugin;
+    std::copy(subparts.begin(),
+              subparts.end() - 1,
+              std::ostream_iterator<std::string>(plugin, "_"));
+    plugin << subparts.back();
+
+    return type + "s." + plugin.str();
 }
 
 } // unnamed namespace;
