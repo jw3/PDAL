@@ -48,7 +48,8 @@ class ArtifactManager
 public:
     bool put(const std::string& name, ArtifactPtr artifact)
     {
-        return m_storage.insert(std::make_pair(name, artifact)).second;
+        m_storage[name] = artifact;
+        return m_storage.find(name) != m_storage.end();
     }
 
     template <typename T>

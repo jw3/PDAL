@@ -77,4 +77,19 @@ TEST(ArtifactTest, simple)
     EXPECT_EQ(t.artifactManager().get<TestArtifact2>("MyTest"), nullptr);
 }
 
+TEST(ArtifactTest, replace_value)
+{
+    using TAPtr = std::shared_ptr<TestArtifact>;
+    std::string tk = "test.key";
+    TAPtr ta(new TestArtifact("MyTest"));
+    TAPtr ta2(new TestArtifact("MyTest2"));
+
+    PointTable t;
+    EXPECT_TRUE(t.artifactManager().put(tk, ta));
+    EXPECT_EQ(t.artifactManager().get<TestArtifact>(tk)->m_val, "MyTest");
+
+    EXPECT_TRUE(t.artifactManager().put(tk, ta2));
+    EXPECT_EQ(t.artifactManager().get<TestArtifact>(tk)->m_val, "MyTest2");
+}
+
 } // namespace pdal
