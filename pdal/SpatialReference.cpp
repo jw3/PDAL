@@ -396,7 +396,7 @@ int SpatialReference::getUTMZone() const
 
     int north(0);
     int zone = OSRGetUTMZone(current.get(), &north);
-    return north*zone;
+    return north ? zone : -zone;
 }
 
 int SpatialReference::computeUTMZone(const BOX3D& box) const
