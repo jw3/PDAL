@@ -34,7 +34,6 @@
 
 #include "GreyhoundCommon.hpp"
 
-#include <regex>
 #include <set>
 #include <sstream>
 
@@ -74,15 +73,6 @@ std::string GreyhoundParams::extractUrl(const GreyhoundArgs& args) const
 
     // Strip off the query string.
     s = args.url.substr(0, args.url.find('?'));
-
-    if (std::regex_match(s, std::regex(".+/resource/.+/read$")))
-    {
-        // If the URL is a fully-specified READ query, strip off the "read".
-        if (args.resource.size())
-            throw pdal_error("Cannot specify resource twice");
-
-        s = s.substr(0, s.size() - 4);
-    }
 
     if (s.empty())
         throw pdal_error("No server specified");
