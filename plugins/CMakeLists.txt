@@ -75,3 +75,5 @@ if(BUILD_PLUGIN_SQLITE)
     endif()
     add_subdirectory(sqlite)
 endif()
+
+add_subdirectory(ept)
