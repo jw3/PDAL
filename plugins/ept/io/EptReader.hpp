@@ -114,10 +114,14 @@ private:
         uint64_t& threadsArg() { return m_threads; }
         uint64_t threads() const { return std::max<uint64_t>(4, m_threads); }
 
+       uint64_t& minArg() { return m_min; }
+       uint64_t min() { return std::max<uint64_t>(0, m_min); }
+
     private:
         Bounds m_bounds;
         std::string m_originArg;
         uint64_t m_threads;
+        uint64_t m_min;
     };
 
     Args m_args;

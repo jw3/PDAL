@@ -111,6 +111,7 @@ void EptReader::addArgs(ProgramArgs& args)
     args.add("bounds", "Bounds to fetch", m_args.boundsArg());
     args.add("origin", "Origin of source file to fetch", m_args.originArg());
     args.add("threads", "Number of worker threads", m_args.threadsArg());
+    args.add("min", "Min num points or fail", m_args.minArg());
 }
 
 BOX3D EptReader::Args::bounds() const
@@ -328,6 +329,13 @@ void EptReader::ready(PointTableRef table)
         std::endl;
     log()->get(LogLevel::Debug) << "Overlap points: " << m_overlapPoints <<
         std::endl;
+    log()->get(LogLevel::Debug) << "Minimum points: " << m_args.min() <<
+        std::endl;
+
+    if (m_args.min() && m_overlapPoints < m_args.min())
+    {
+        throwError("Minimum point count not met");
+    }
 
     if (m_overlapPoints > 1e8)
     {
